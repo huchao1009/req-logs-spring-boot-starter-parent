@@ -1,0 +1,5 @@
+/* 多模块构建 */
+/* 父模块名称 */
+rootProject.name = 'req-logs-springboot-starter-parent'
+/* 引入子模块 */
+include 'req-logs-spring-boot-autoconfigure','req-logs-spring-boot-starter'

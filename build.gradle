@@ -1,0 +1,37 @@
+ext{
+    buildGroup = 'com.opensource.component'
+    buildVersion = '1.0.0-SNAPSHOT'
+}
+
+apply plugin: 'java'
+apply plugin: 'com.opensource.publish'
+
+group 'com.opensource.component'
+version '1.0.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+/**
+ * buildScript块的repositories主要是为了Gradle脚本自身的执行，获取脚本依赖插件。
+ */
+buildscript {
+    repositories {
+        maven {
+            credentials {
+                username System.getenv("REPO_USER_NAME")
+                password System.getenv("REPO_PASSWORD")
+            }
+            url System.getenv("REPO_URL_RELEASE")
+        }
+    }
+    dependencies {
+        classpath 'com.opensource.gradle:gradle-plugin:+'
+    }
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
+}
